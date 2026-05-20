@@ -1,0 +1,27 @@
+{
+    "user_0": {
+        "name": "Zero",
+        "password": "0000",
+        "card_number": "0000 0000"
+    },
+    "user_1": {
+        "name": "Haos",
+        "password": "4114",
+        "card_number": "0000 0000"
+    },
+    "user_2": {
+        "name": "Rent",
+        "password": "3113",
+        "card_number": "0000 0000"
+    },
+    "user_3": {
+        "name": "Raya",
+        "password": "2112",
+        "card_number": "0000 0000"
+    },
+    "user_5": {
+        "name": "Nigga",
+        "password": "nega",
+        "card_number": "0000 0000"
+    }
+}

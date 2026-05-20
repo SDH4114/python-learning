@@ -1,4 +1,0 @@
-Hello
-sweety
-sf
-yeaa
