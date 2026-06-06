@@ -1,39 +1,52 @@
 import json
 
 def load_users():
-    with open("projects/shop/users.json", "r", encoding="utf-8") as file:
+    with open("users.json", "r", encoding="utf-8") as file:
         return json.load(file)
 
 def save_users(users):
-    with open("projects/shop/users.json", "w", encoding="utf-8") as file:
+    with open("users.json", "w", encoding="utf-8") as file:
         json.dump(users, file, ensure_ascii=False, indent=4)
 
+
+
 def load_bag():
-    with open("projects/shop/bags.json", "r", encoding="utf-8") as file:
+    with open("bags.json", "r", encoding="utf-8") as file:
         return json.load(file)
 
 def save_bag(bag):
-    with open("projects/shop/bags.json", "w", encoding="utf-8") as file:
+    with open("bags.json", "w", encoding="utf-8") as file:
         json.dump(bag, file, ensure_ascii=False, indent=4)
+
+
+
+def load_quests():
+    with open("quests.json", "r", encoding="utf-8") as file:
+        return json.load(file)
+
+def save_quests(quests):
+    with open("quests.json", "w", encoding="utf-8") as file:
+        json.dump(quests, file, ensure_ascii=False, indent=4)
+
 
 
 products = {
     "Молоко": 12, "Хлеб": 2, "Сыр": 15, "Грибы": 8, "Вода": 2,
     "Яблоко": 5, "Апельсин": 5, "Мясо": 20, "Рыба": 18, "Яйца": 10,
-    "Магические Грибы": 33, "Сыр с Плесенью Гнома": 27, "Черный Хлеб": 6, "Синее Молоко": 19, "Огненный Перец": 14,
-    "Лунная Соль": 11, "Кристальный Сахар": 13, "Теневой Чай": 16, "Кофе Бездны": 22, "Мед Призрака": 25,
-    "Обсидиановая Морковь": 17, "Проклятая Картошка": 9, "Золотой Лук": 12, "Ягоды Свободы": 21, "Суп Странника": 30
+    "Магические грибы": 33, "Сыр с плесенью гнома": 27, "Черный хлеб": 6, "Синее молоко": 19, "Огненный перец": 14,
+    "Лунная соль": 11, "Кристальный сахар": 13, "Теневой чай": 16, "Кофе бездны": 22, "Мед призрака": 25,
+    "Обсидиановая морковь": 17, "Проклятая картошка": 9, "Золотой лук": 12, "Ягоды свободы": 21, "Суп странника": 30
 }
 
 users = load_users()
 bags = load_bag()
 iCount= len(users)
+quests = load_quests()
 
-
-def LogIn(users):
-    print("User name",end=" ")
+def logIn_func(users):
+    print("User name")
     logName=input("> ")
-    print("User password",end=" ")
+    print("User password")
     logPassword=input("> ")
     print("")
 
@@ -44,10 +57,11 @@ def LogIn(users):
             if current_user not in bags:
                 bags[current_user]={}
                 save_bag(bags)
+                
             break
     return current_user
 
-def SingUp(users,iCount):
+def singUp_func(users,iCount):
     print("User name",end=" ")
     singName=input("> ")
     print("")
@@ -65,7 +79,7 @@ def SingUp(users,iCount):
     print("")
     return users , iCount
 
-def Account(users, current_use):
+def account_func(users, current_use):
     getOut=False
     print(users[current_use])
     print("")
@@ -75,15 +89,17 @@ def Account(users, current_use):
         delete= input("> ")
         print("")
 
-        if delete in ("yes","YES","y","Yes","Y"):
+        if delete.capitalize() in ("Yes","Y"):
             users.pop(current_use)
             bags.pop(current_use)
+            quests.pop(current_use)
+
             getOut=True
             save_users(users)
             save_bag(bags)
             break
 
-        elif delete in ("not","NOT","n","Not","N","no","No","NO"):
+        elif delete.capitalize() in ("Not","N","No"):
             print("ok")
             print("")
             break
@@ -93,21 +109,21 @@ def Account(users, current_use):
             print("")
     return getOut
 
-def Shop(products, user_bag):
+def shop_func(products, user_bag):
     while True:
         print("write product or exit")
         print("if you want see all products write \"Products\"")
         prod = input("> ")
         print("")
 
-        if prod in products:
+        if prod.capitalize() in products:
             print(prod," - ", products[prod])
             print("Do you what to buy?")
             print("yes or not")
             buy= input("> ")
             print("")
 
-            if buy in ("yes","YES","y","Yes","Y"):
+            if buy.capitalize() in ("Yes","Y"):
                 print("How many?")
                 count=input("> ")
                 while count.isdigit() == False or int(count)<0:
@@ -128,19 +144,19 @@ def Shop(products, user_bag):
                 else:
                     print("count must be more than 0")
 
-            elif buy in ("not","NOT","n","Not","N"):
+            elif buy.capitalize() in ("No","Not","N"):
                 print("")
 
             else:
                 print("sorry answer is unknown")
                 print("")
 
-        elif prod in ("Products","PRODUCTS","products"):
+        elif prod.capitalize() == "Products":
             for keys, values in products.items():
                 print(keys ," - ", values)
             print("")
 
-        elif prod in ("EXIT","exit","Exit"):
+        elif prod.capitalize() == "Exit":
             print(user_bag)
             print("")
             break
@@ -150,7 +166,62 @@ def Shop(products, user_bag):
             print("")
 
 
-def Bag(products, user_bag):
+def quests_func(current_use,quests):
+    print("Quests Board")
+    print("Accepted Quests")
+    print("Apply Quest")
+    print("")
+
+    questDo=input("> ")
+
+    if questDo.capitalize() in ("Quests board","Board"):
+        for key, value in quests.items():
+            print(key, " - ", value)
+    elif questDo.capitalize() in ("Accepted quests","Accepted"):
+        print("soon")
+    elif questDo.capitalize() in ("Apply quest","Apply"):
+        create_quest_func(quests)
+        print("")
+    else:
+        print("bad blabla")
+
+def create_quest_func(quests):
+#   for key, dificult in user_quest.items():
+#       print(key, " - ", dificult)
+
+    print("Do you want to apply quest?")
+    print("Yes or Not")
+    questDo = input("> ")
+
+    if questDo.capitalize() in ("Yes","Y"):
+        print("Write goal")
+        questGoal = input("> ").capitalize()
+
+        print("Write dificult")
+        questDif = input("> ").capitalize()
+
+        need_dic = {}
+        
+        print("Write need thinghs (stop)")
+        while True:
+            print("What you need?")
+            needAdd=input("> ").capitalize()
+            print("")
+            if needAdd == "Stop":
+                break
+
+            print("How many?")
+            needAddCount = int(input("> "))
+            need_dic.update({needAdd:needAddCount})
+
+        print("Write reward")
+        quesreward = input("> ").capitalize()
+
+        quests.update({questGoal:{"dificult":questDif,"need":need_dic,"reward":quesreward}})
+        save_quests(quests)
+
+
+def bag_func(products, user_bag):
     for keys, values in user_bag.items():
         print(keys," - ",values)
     print("")
@@ -161,7 +232,7 @@ def Bag(products, user_bag):
         bagDo = input("> ")
         print("")
         Allcount=0
-        if user_bag and bagDo in ("buy","BUY","Buy","buy everything","Buy Everything","BUY EVERYTHING"):
+        if user_bag and bagDo.capitalize() in ("Buy","Buy everything"):
             for iBuy in  user_bag:
                 Allcount+= user_bag[iBuy]*products[iBuy]
             print("Products- ",Allcount)
@@ -170,11 +241,11 @@ def Bag(products, user_bag):
             user_bag.clear()
             save_bag(bags)
             break
-        elif bagDo in ("delete","DELETE","Delete"):
+        elif bagDo.capitalize() == "Delete":
             user_bag.clear()
             save_bag(bags)
             break
-        elif bagDo in ("EXIT","exit","Exit"):
+        elif bagDo.capitalize() == "Exit":
             break
         else:
             print("sorry we didnt understand your answer(")
@@ -188,43 +259,47 @@ while True:
     logUp=input("> ")
     print("")
 
-    if logUp in ("Log in","Log In","log in","LOG IN","log In"):
-        current_use = LogIn(users)
-        if current_use=="":
+    if logUp.capitalize() == "Log in":
+        current_use = logIn_func(users)
+        if current_use == "":
             print("sorry wrong user name or password")
             print("")
         else:
             while getOut == False:
                 print("")
                 print("Shop")
+                print("Quests")
                 print("Bag")
                 print("Account")
                 print("Exit")
                 chooseDo= input("> ")
                 print("")
 
-                if chooseDo in ("Shop","shop","SHOP"):
-                    Shop(products, bags[current_use])
+                if chooseDo.capitalize() == "Shop":
+                    shop_func(products, bags[current_use])
 
-                elif chooseDo in ("bag","BAG","Bag") and bags[current_use]:
-                    Bag(products, bags[current_use])
+                elif chooseDo.capitalize() == "Quests":
+                    quests_func(current_use,quests)
 
-                elif not bags[current_use] and chooseDo in ("bag","BAG","Bag"):
+                elif chooseDo.capitalize() == "Bag" and bags[current_use]:
+                    bag_func(products, bags[current_use])
+
+                elif not bags[current_use] and chooseDo.capitalize() == "Bag":
                     print("Sorry but you dont have anything in bag")
 
-                elif chooseDo in ("Account","ACCOUNT","account"):
-                    getOut = Account(users,current_use)
+                elif chooseDo.capitalize() == "Account":
+                    getOut = account_func(users,current_use)
 
-                elif chooseDo in ("EXIT","exit","Exit"):
+                elif chooseDo.capitalize() == "Exit":
                     break
 
                 else:
                     print("sorry answer is unknown")
                     print("")
 
-    elif logUp in ("Sing Up","Sing up","sing up","SING UP","sing Up"):
+    elif logUp.capitalize() == "Sing up":
         iCount= len(users)+1
-        SingUp(users,iCount)
+        singUp_func(users,iCount)
     else:
         print("sorry answer is unknown")
         print("")
