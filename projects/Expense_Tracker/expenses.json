@@ -1,0 +1,50 @@
+[
+    {
+        "title": "pizza",
+        "category": "food",
+        "amount": 12.5,
+        "date": "2026-06-14"
+    },
+    {
+        "title": "scary movie",
+        "category": "film",
+        "amount": 28.0,
+        "date": "2026-06-15"
+    },
+    {
+        "title": "MacBook Pro 14",
+        "category": "technology",
+        "amount": 1200.5,
+        "date": "2026-06-15"
+    },
+    {
+        "title": "Paint Ball",
+        "category": "entertaiment",
+        "amount": 500.0,
+        "date": "2026-06-15"
+    },
+    {
+        "title": "Spotify",
+        "category": "entertaiment",
+        "amount": 20.0,
+        "date": "2026-06-15"
+    },
+    {
+        "title": "ChatGPT",
+        "category": "work",
+        "amount": 20.0,
+        "date": "2026-06-15"
+    },
+    {
+        "title": "Book",
+        "category": "entertaiment",
+        "amount": 6.6,
+        "date": "2026-06-15"
+    },
+    {
+        "title": "Coffe",
+        "category": "food",
+        "amount": 2.5,
+        "date": "2026-06-15"
+    }
+]
